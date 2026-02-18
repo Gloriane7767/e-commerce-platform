@@ -32,7 +32,9 @@ public class Customer {
     @Column(nullable = false, length = 100)
     private Instant createdAt;
 
-    @Column(nullable = false, length = 100)
+    @OneToOne
+    @JoinColumn(name = "address_id") // @JoinColumn(name = "address_id") - creates a foreign key column called address_id in the customers table
+
     private Address address;
 
     @OneToOne // @OneToOne - defines the one-to-one relationship
