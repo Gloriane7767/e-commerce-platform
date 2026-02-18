@@ -27,4 +27,21 @@ public class UserProfile {
     @Column(length = 500)
     private String bio;
 
+    @OneToOne(mappedBy = "userProfile") // This annotation indicates that this field is the inverse side of a one-to-one relationship with the Customer entity. The 'mappedBy' attribute specifies that the relationship is mapped by the 'userProfile' field in the Customer entity.
+    private Customer customer; // This field represents the one-to-one relationship with the Customer entity. It will be mapped to a foreign key in the database.
 }
+ /*
+ mappedBy = "profile" - tells JPA this is the inverse side and the relationship is controlled by the profile field in the Customer class
+This side doesn't create a foreign key column
+
+Bidirectional means both classes know about each other:
+
+Customer has a reference to UserProfile
+
+UserProfile has a reference back to Customer
+
+Owner Side (Customer) = controls the foreign key in the database
+Inverse Side (UserProfile) = just mirrors the relationship, uses mappedBy
+
+The mappedBy value must match the field name in the owner class exactly.
+  */
