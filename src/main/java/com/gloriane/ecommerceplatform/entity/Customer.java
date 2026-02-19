@@ -26,19 +26,17 @@ public class Customer {
     @Column(nullable = false, length = 100)
     private String lastname;
 
-    @Column(unique = true, length = 100, nullable = false)
+    @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(nullable = false, length = 100)
     private Instant createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "address_id") // @JoinColumn(name = "address_id") - creates a foreign key column called address_id in the customers table
-
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToOne // @OneToOne - defines the one-to-one relationship
-    @JoinColumn(name = "user_profile_id") // @JoinColumn(name = "profile_id") - creates a foreign key column called profile_id in the customers table
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     @PrePersist
