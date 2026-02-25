@@ -44,6 +44,7 @@ public class Order {
         this.orderDate = Instant.now();
         if (items == null || items.isEmpty()) {
             throw new IllegalStateException("Order must contain at least one item");
+            // this.status = OrderStatus.CREATED;
         }
     }
 }

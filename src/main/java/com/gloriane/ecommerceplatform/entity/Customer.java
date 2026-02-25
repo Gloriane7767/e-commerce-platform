@@ -35,7 +35,7 @@ public class Customer {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) // if you dereference the child entity or null value, it will be removed from the database
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
