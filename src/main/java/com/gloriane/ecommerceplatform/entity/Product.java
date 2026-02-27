@@ -21,7 +21,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 150)
     private String name;
 
     @ElementCollection // Store the elements of this collection in a table named product_images.
@@ -29,7 +29,7 @@ public class Product {
             name = "product_images",
             joinColumns = @JoinColumn(name = "product_id")
     )
-    @Column(name = "image_url") // The column that stores the String values in the product_images table will be named image_url.
+    @Column(name = "image_url", length = 500) // The column that stores the String values in the product_images table will be named image_url.
     private List<String> imageUrls = new ArrayList<>();
 
     @Column(nullable = false)
@@ -48,9 +48,3 @@ public class Product {
     private Set<Promotion> promotions;
 }
 
- /*
-    You have a field in a JPA entity: List<string> imageUrls;</string>
-    The annotations tell JPA to store that list in its own database table (not as columns of the main product table) even though the list items are plain Strings (not separate entity objects).
-    This field is a collection of basic values (Strings, numbers, enums) or embeddables, not a collection of other entity objects."
-    JPA will treat each String in the list as a value to be persisted in a separate collection table that belongs to the parent entity.
-     */

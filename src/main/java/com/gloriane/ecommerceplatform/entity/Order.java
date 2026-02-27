@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigDecimal;
+
 
 @Getter
 @Setter
@@ -22,29 +22,22 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Instant orderDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private OrderStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @OneToMany(
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
-    private List<OrderItem> items = new ArrayList<>();
-
     @PrePersist
     public void prePersist() {
         this.orderDate = Instant.now();
-        if (items == null || items.isEmpty()) {
+        if (orderDate == null){
             throw new IllegalStateException("Order must contain at least one item");
-            // this.status = OrderStatus.CREATED;
         }
     }
 }

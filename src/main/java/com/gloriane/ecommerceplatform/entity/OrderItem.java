@@ -18,16 +18,11 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_id", insertable = false, updatable = false) // so it does not conflict with the @ManyToOne mapping.
-    private Long productId;
-
+    @Column(nullable = false)
     private Integer quantity;
 
-    BigDecimal priceAtPurchase;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @Column(nullable = false)
+    private BigDecimal priceAtPurchase;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
